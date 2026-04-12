@@ -2,7 +2,6 @@ import { getLocalStorage, setLocalStorage } from "./storage.mjs";
 export function favoriteButtonListener() {
     let favorites = getLocalStorage("favorites") || [];
     const favoriteButtons = document.querySelectorAll("#favorite");
-    console.log(favoriteButtons);
     favoriteButtons.forEach(button => {
         button.addEventListener("click", () => {
             if (button.textContent === "☆") {
