@@ -1,0 +1,261 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Montserrat:wght@400;500;700&display=swap');
+:root {
+  font-weight: 400;
+
+  color-scheme: light dark;
+  --color: rgba(255, 255, 255, 0.87);
+  background-color: #1C1C1C;
+  --accent-color1: #E67E22;
+  --accent-color2: #3498DB;
+  --accent-color3: #9B59B6;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Body text */
+body {
+  font-family: 'Merriweather', serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #FFFFFF;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500; /* bold */
+}
+
+a {
+  font-weight: 500;
+  color: var(--color);
+  text-decoration: inherit;
+}
+a:hover {
+  color: var(--accent-color3);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.1;
+  padding-left: 10px;
+}
+
+h2{
+  padding-left: 30px;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #f7df1eaa);
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+#main-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: black;
+  div {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    padding-right: 20px;
+  }
+  img {
+    height: 100px;
+    width: auto;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: x-large;
+    margin: auto 0;
+  }
+}
+
+#search-container {
+  width: 100%;
+  margin-top: 1rem;
+  form{
+    display: flex;
+    justify-content: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  input {
+    width: 70%;
+    max-width: 500px;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background-color: #222;
+    color: #fff;
+  }
+
+  button {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #444;
+  }
+}
+
+.containers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  gap: 3rem;
+  place-content: center;
+
+  padding-bottom: 20px;
+  div {
+    background-color: #222;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 450px;
+
+    button {
+      font-size: xx-large;
+      margin: 10px;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      color: yellow;
+    }
+   
+  }
+}
+
+
+
+#details-container {
+  padding: 20px 20px;
+  margin: 0 auto;
+  place-items: center;
+}
+
+#movie-details{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    div {
+      width: 800px;
+    }
+
+     button {
+      font-size: xx-large;
+      margin: 10px;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      color: yellow;
+      font-size: 2rem;
+    }
+}
+
+#trailer {
+  padding-top: 20px;
+  margin: 0 auto;
+
+  iframe{
+    width: 300px; 
+    height:  168px;
+  }
+}
+
+footer {
+  background-color: black;
+  margin-top: 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid #333;
+  color: var(--color);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+@media (min-width: 400px) {
+  #trailer {
+    iframe{
+      width: 350px; 
+      height:  196px;
+    }
+  }
+  
+}
+
+@media (min-width: 600px) {
+  #trailer {
+    iframe{
+      width: 560px; 
+      height:  315px;
+    }
+  }
+  
+}
