@@ -1,8 +1,9 @@
-export function setLocalStorage(data) {
-    localStorage.setItem("#favorites", JSON.stringify(data));
+export function setLocalStorage(storage, data) {
+    localStorage.setItem(storage, JSON.stringify(data));
 }
 
-export function getLocalStorage() {
-    const item = localStorage.getItem("#favorites");
+export function getLocalStorage(storage) {
+    const item = localStorage.getItem(storage);
     return JSON.parse(item);
 }
+

@@ -1,5 +1,5 @@
 import { getLocalStorage } from "./storage.mjs";
-
+import { loading } from "./animation.mjs";
 
 export async function loadTemplate(path) {
     const res = await fetch(path);
@@ -45,7 +45,7 @@ export function renderMedia(parentElement, medias) {
   let date;
   let year;
   if (medias.length != 0) {
-    const favorites = getLocalStorage() || [];
+    const favorites = getLocalStorage("#favorites") || [];
     medias.forEach(media => {
       let star = "☆";
       let poster = `<img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name} Poster" />`;
@@ -87,19 +87,15 @@ export function renderMedia(parentElement, medias) {
         mediasHTML += `
       <div id="medias">
         <button id="favorite" data-id="${media.id}" data-type=${type}>${star}</button>
-        <a href="details.html?id=${media.id}&type=${type}">
-        <h3>${media.title || media.name} (${year})</h3>
-        </a>
-        <a href="details.html?id=${media.id}&type=${type}">
+        <button id="poster" data-id="${media.id}" data-type=${type}>
+          <h3>${media.title || media.name} (${year})</h3>
           ${poster} 
-        </a>
-      
+        </button>
       </div>`
     });
   } else {
     mediasHTML = `<p>Oops, sorry there is no data available</p>`;
   }
-  
   parentElement.innerHTML = mediasHTML;
 }
 
@@ -113,14 +109,14 @@ export function renderDetails(parentElement, media){
 
   let detailsHtml = ``;
   let star = "☆";
-  const favorites = getLocalStorage() || [];
+  const favorites = getLocalStorage("#favorites") || [];
   favorites.forEach(fav =>{
     if (media.id == fav[0]) {
       star = "★";
     }
   })
 
-  
+  console.log(media)
   for (let i = 0; i < media.genres.length; i++) {
     genres.push(media.genres[i].name);
   }
@@ -173,6 +169,7 @@ export function renderDetails(parentElement, media){
         <p>${media.overview}</p>
         <p>Release Date: ${date}</p>
         <p>Genres: ${genres.join(", ")|| "No genres"}</p>
+        <p>popularity: ${parseFloat(media.popularity).toFixed(2)}</p>
         <p>Duration: ${duration}</p>
         <span>Tagline: ${media.tagline || "None"}</span>
       </div>
@@ -181,7 +178,8 @@ export function renderDetails(parentElement, media){
     <h2>Cast</h2>
     <div id="cast"></div>
   `;
-  parentElement.innerHTML = detailsHtml
+  loading()
+  parentElement.innerHTML = detailsHtml;
 }
 
 export async function renderCast(parentElement, cast) {
@@ -190,9 +188,9 @@ export async function renderCast(parentElement, cast) {
     cast.forEach((member) => {
       let poster = `<img src="https://image.tmdb.org/t/p/w200${member.profile_path}" alt="${member.name || member.original_name} Profile" />`;
       view +=  `<div>
-        <a href="details.html?id=${member.id}">
+        <button id="profile" data-id="${member.id}">
           ${poster}
-        </a>
+        </button>
         <div id="member">
           <p>${member.name}</p>
           <p>Character: ${member.character || "Not provided"}</p>
@@ -202,6 +200,7 @@ export async function renderCast(parentElement, cast) {
   } else{
     view = `<p>Oops, cast info is not available</p>`;
   }
+  loading()
   parentElement.innerHTML = view;
 }
 
@@ -239,5 +238,26 @@ export async function renderPerson(parentElement, person) {
       </div>
     </div>
   `;
+  loading()
   parentElement.innerHTML = detailsHtml
 } 
+
+export async function renderActors(parentElement, cast) {
+  let view = ``;
+  if (cast.length != 0) {
+    cast.forEach((member) => {
+      let poster = `<img src="https://image.tmdb.org/t/p/w200${member.profile_path}" alt="${member.name || member.original_name} Profile" />`;
+      view +=  `<div>
+        <button id="profile" data-id="${member.id}">
+          ${poster}
+        </button>
+        <div id="member">
+          <p>${member.name}</p>
+        </div>
+      </div>`;
+    })
+  } else{
+    view = `<p>Oops, cast info is not available</p>`;
+  }
+  parentElement.innerHTML = view;
+}

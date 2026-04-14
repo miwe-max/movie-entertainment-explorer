@@ -4,26 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="images/logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movie/Entertainment Explorer</title>
+    <title>Search | Movie/Entertainment Explorer</title>
+    <script type="module" src="js/app.js"></script>
     <script type="module" src="js/search.js"></script>
   </head>
 
-  <body>
+  <body id="page">
     <header id="main-header"></header>
+     <button><a href="history.html">History</a></button>
     <main id="main-content">
       <div id="search-container"></div>
+      <div id="loader" class="">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+      </div>
       <h1>Search Results</h1>
       <h2>Movies</h2>
+       
       <div class="containers" id="movies-container">
-        <div></div>
-        <div></div>
-        <div></div>
       </div>
       <h2>TV Shows</h2>
       <div class="containers" id="shows-container">
-        <div></div>
-        <div></div>
-        <div></div>
       </div>
     </main>
     <footer id="main-footer"></footer>

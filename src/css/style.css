@@ -47,6 +47,17 @@ h2 {
   padding-left: 30px;
 }
 
+body > button{
+  display: block;
+  font-size: large;
+  margin:10px 0 -10px 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 12px;
+  background-color: #111111;
+  font-size: large;
+}
+
 a {
   font-weight: 500;
   color: var(--color);
@@ -64,20 +75,6 @@ a:hover {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
-}
 
 .card {
   padding: 2em;
@@ -85,6 +82,11 @@ a:hover {
 
 .read-the-docs {
   color: #888;
+}
+
+main {
+  min-height: 500px;
+  padding: 10px;
 }
 
 button {
@@ -135,6 +137,10 @@ button:focus-visible {
   color: var(--color);
 }
 
+#main-header a:hover {
+  color: var(--accent-color3);
+}
+
 /* Search container */
 #search-container {
   width: 100%;
@@ -158,6 +164,7 @@ button:focus-visible {
   border: 1px solid #444;
   background-color: #222;
   color: #fff;
+  box-shadow: 5px 10px 10px black;
 }
 
 #search-container select {
@@ -168,21 +175,31 @@ button:focus-visible {
   border: 1px solid #444;
   background-color: #222;
   color: #fff;
+  box-shadow: 5px 10px 10px black;
 }
 
 #search-container button {
   margin-left: 0.1rem;
   padding: 0.5rem 0.5rem;
   border: 1px solid #444;
+  box-shadow: 4px 8px 8px black;
+}
+
+#visits {
+  padding-left: 10px;
+  font-size: large;
 }
 
 /* Containers */
 .containers {
+  opacity: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
   gap: 3rem;
   place-content: center;
   padding-bottom: 20px;
+  position: relative;
+  min-width: 300px;
 }
 
 .containers div {
@@ -191,14 +208,24 @@ button:focus-visible {
   overflow: hidden;
   border-radius: 8px;
   height: 450px;
+  align-self: center;
+  box-shadow: 5px 10px 10px black;
 }
 
-.containers div img {
+.containers #poster {
+  padding: 0;
+  margin: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
-.containers div > a h3 {
+.containers #poster img {
+  width: 100%;
+  height: 100%;
+  
+}
+
+.containers #poster > h3 {
   position: absolute;
   bottom: 0px;
   width: 100%;
@@ -208,7 +235,7 @@ button:focus-visible {
   font-weight: 800;
 }
 
-.containers div button {
+.containers #favorite {
   font-size: xx-large;
   margin: 10px;
   padding: 0;
@@ -221,9 +248,13 @@ button:focus-visible {
 
 /* Details container */
 #details-container {
+  
   padding: 20px 20px;
   margin: 0 auto;
   place-items: center;
+}
+.details {
+  opacity: 0;
 }
 
 /* Movie details */
@@ -241,10 +272,15 @@ button:focus-visible {
   width: 800px;
 }
 
+#cast-details img, #movie-details img {
+  width: 300px;
+  height: 450px;
+  box-shadow: 5px 10px 10px black;
+}
+
 #movie-details div h1 {
   padding: 0;
   margin: 0;
-  margin-bottom: -20px;
 }
 
 #movie-details div h2 {
@@ -265,7 +301,7 @@ button:focus-visible {
 
 #movie-details button {
   font-size: 2rem;
-  margin: 10px;
+  text-align: center;
   padding: 0;
   border: none;
   background-color: transparent;
@@ -278,6 +314,7 @@ button:focus-visible {
 
 /* Trailer */
 #trailer {
+  opacity: 0;
   padding-top: 20px;
   margin: 0 auto;
 }
@@ -285,6 +322,11 @@ button:focus-visible {
 #trailer iframe {
   width: 300px;
   height: 168px;
+  box-shadow: 5px 10px 10px black;
+}
+
+#trailer p {
+  opacity: 1;
 }
 
 /* Cast */
@@ -303,15 +345,19 @@ button:focus-visible {
   background-color: black;
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 5px 10px 10px black;
 }
 
-#cast > div a {
+#cast > div button {
   width: 100%;
+  padding: 0;
+  overflow: hidden;
 }
 
-#cast > div a img {
+#cast > div button img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  margin-bottom: -5px;
 }
 
 #cast > div div p {
@@ -348,34 +394,4 @@ footer {
 footer p {
   padding: 0px;
   margin: 10px 0;
-}
-
-/* Media queries */
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-@media (min-width: 400px) {
-  #trailer iframe {
-    width: 350px;
-    height: 196px;
-  }
-}
-
-@media (min-width: 600px) {
-  #trailer iframe {
-    width: 560px;
-    height: 315px;
-  }
 }

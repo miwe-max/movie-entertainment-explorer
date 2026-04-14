@@ -3,13 +3,15 @@ const TMDB_URL = import.meta.env.VITE_TMDB_URL;
 
 
 export async function getTrendingMovies() {
-    const url = `${TMDB_URL}/trending/movie/day?api_key=${TMDB_KEY}`;
-    let res = await fetch(url);
-    let data = await res.json();
-    return data.results;
+   
+  const url = `${TMDB_URL}/trending/movie/day?api_key=${TMDB_KEY}`;
+  let res = await fetch(url);
+  let data = await res.json();
+  return data.results;
 }
 
 export async function getTrendingTVShows() {
+     
     const url = `${TMDB_URL}/trending/tv/day?api_key=${TMDB_KEY}`;
     let res = await fetch(url);
     let data = await res.json();
@@ -17,6 +19,7 @@ export async function getTrendingTVShows() {
 }
 
 export async function getByIdAndType(type, id) {
+   
     let url = ``;
     if (type == "movie"){
         url = `${TMDB_URL}/movie/${id}?api_key=${TMDB_KEY}`;
@@ -71,6 +74,7 @@ export async function getGenreList() {
 }
 
 export async function getMedia(type, query) {
+   
   const url = `https://api.themoviedb.org/3/search/${type}?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}`;
 
   const res = await fetch(url);
@@ -79,6 +83,7 @@ export async function getMedia(type, query) {
 } 
 
 export async function getMediaByGenre(type, query) {
+   
   const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_KEY}&with_genres=${encodeURIComponent(query)}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -86,6 +91,7 @@ export async function getMediaByGenre(type, query) {
 }
 
 export async function getMediaByGenreAndTitle(type, query1, query2) {
+   
   const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_KEY}&with_genres=${encodeURIComponent(query2)}&&with_text_query=${encodeURIComponent(query1)}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -100,6 +106,7 @@ export async function getMovieCast(type, movieId) {
 }
 
 export async function getPersonDetails(personId) {
+   
     const url = `https://api.themoviedb.org/3/person/${personId}?api_key=${TMDB_KEY}`;
     let res = await fetch(url);
     let data = await res.json();
