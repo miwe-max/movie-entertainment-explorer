@@ -47,7 +47,6 @@ export function renderMedia(parentElement, medias) {
   if (medias.length != 0) {
     const favorites = getLocalStorage() || [];
     medias.forEach(media => {
-      console.log(media)
       let star = "☆";
       let poster = `<img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name} Poster" />`;
       favorites.forEach(fav =>{
@@ -62,15 +61,12 @@ export function renderMedia(parentElement, medias) {
           console.log("Date is empty");
         } else {
             date = new Date(media.first_air_date);
-            console.log(date);
         }
-          console.log(date);
       } else if (media.media_type == "movie" || !media.number_of_episodes){
         if (!media.release_date) {
           console.log("Date is empty");
         } else {
           date = new Date(media.release_date);
-          console.log(date);
         }
       
       }
@@ -95,8 +91,7 @@ export function renderMedia(parentElement, medias) {
         <h3>${media.title || media.name} (${year})</h3>
         </a>
         <a href="details.html?id=${media.id}&type=${type}">
-          ${poster}
-          
+          ${poster} 
         </a>
       
       </div>`
@@ -117,7 +112,6 @@ export function renderDetails(parentElement, media){
   let year;
 
   let detailsHtml = ``;
-  console.log(media)
   let star = "☆";
   const favorites = getLocalStorage() || [];
   favorites.forEach(fav =>{
@@ -138,7 +132,6 @@ export function renderDetails(parentElement, media){
           console.log("Date is empty");
         } else {
             date = new Date(media.first_air_date);
-            console.log(date);
         }
         duration = `${media.number_of_seasons} Seasons`;
         title = media.name;
@@ -156,7 +149,6 @@ export function renderDetails(parentElement, media){
       console.log("Date is empty");
     } else {
       date = new Date(media.release_date);
-      console.log(date);
     }
     
   }
@@ -186,6 +178,7 @@ export function renderDetails(parentElement, media){
       </div>
     </div>
     <div id="trailer"></div>
+    <h2>Cast</h2>
     <div id="cast"></div>
   `;
   parentElement.innerHTML = detailsHtml
@@ -193,9 +186,7 @@ export function renderDetails(parentElement, media){
 
 export async function renderCast(parentElement, cast) {
   let view = ``;
-  console.log(cast.length)
   if (cast.length != 0) {
-    console.log(cast)
     cast.forEach((member) => {
       let poster = `<img src="https://image.tmdb.org/t/p/w200${member.profile_path}" alt="${member.name || member.original_name} Profile" />`;
       view +=  `<div>
@@ -204,7 +195,7 @@ export async function renderCast(parentElement, cast) {
         </a>
         <div id="member">
           <p>${member.name}</p>
-          <p>Character: ${member.character}</p>
+          <p>Character: ${member.character || "Not provided"}</p>
         </div>
       </div>`;
     })
@@ -217,6 +208,7 @@ export async function renderCast(parentElement, cast) {
 export async function renderPerson(parentElement, person) {
   let detailsHtml = ``;
   let date;
+  let year;
 
   if (!person.birthday) {
     console.log("Date is empty");
@@ -241,9 +233,9 @@ export async function renderPerson(parentElement, person) {
         <span>Department: ${person.known_for_department}</span>
         <h2 id="info">Info</h2>
         <p>Birthday: ${date}</p>
-        <p>Birth place: ${person.place_of_birth}</p>
+        <p>Birth place: ${person.place_of_birth || "Not provided"}</p>
         
-        <p>Biography: ${person.biography}</p>
+        <p>Biography: ${person.biography || "Not provided"}</p>
       </div>
     </div>
   `;

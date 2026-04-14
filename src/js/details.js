@@ -13,7 +13,7 @@ import {
   getGenreList,
 } from "./api.mjs";
 import { favoriteButtonListener } from "./events.mjs";
-import '../css/style.css';
+import "../css/style.css";
 
 renderTemplates().then(() => {
   getGenreList().then((genres) => {
@@ -31,7 +31,6 @@ if (type) {
     favoriteButtonListener();
 
     const trailerLink = await getTrailer(id, type);
-    console.log(media);
     if (trailerLink) {
       const key = trailerLink.split("v=")[1];
       document.getElementById("trailer").innerHTML = `
@@ -46,12 +45,10 @@ if (type) {
 
     getMovieCast(type, id).then((cast) => {
       renderCast(document.getElementById("cast"), cast);
-      console.log(cast);
     });
   });
 } else {
   getPersonDetails(id).then((person) => {
-    console.log(person);
     renderPerson(document.querySelector("#details-container"), person);
   });
 }

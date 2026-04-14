@@ -1,7 +1,7 @@
 import { renderTemplates, renderMedia, populateGenreSelect } from "./ui.mjs";
 import { getByIdAndType, getGenreList } from "./api.mjs";
 import { getLocalStorage } from "./storage.mjs";
-import '../css/style.css';
+import "../css/style.css";
 
 renderTemplates().then(() => {
   getGenreList().then((genres) => {
