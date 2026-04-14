@@ -1,6 +1,10 @@
 import { renderTemplates, renderMedia, populateGenreSelect } from "./ui.mjs";
 import { getTrendingMovies, getGenreList, getTrendingTVShows } from "./api.mjs";
-import { favoriteButtonListener, mediaCardListener, searchEvent} from "./events.mjs";
+import {
+  favoriteButtonListener,
+  mediaCardListener,
+  searchEvent,
+} from "./events.mjs";
 import { getLocalStorage, setLocalStorage } from "./storage.mjs";
 import { fadeIn, loading } from "./animation.mjs";
 
@@ -18,9 +22,8 @@ renderTemplates().then(() => {
   searchEvent();
 });
 
-
 getTrendingMovies().then((movies) => {
-  loading()
+  loading();
   renderMedia(document.querySelector("#movies-container"), movies);
   fadeIn();
 });

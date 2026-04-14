@@ -12,6 +12,7 @@ export default defineConfig({
         favorite: resolve(__dirname, "src/favorite.html"),
         details: resolve(__dirname, "src/details.html"),
         search: resolve(__dirname, "src/search.html"),
+        history: resolve(__dirname, "src/history.html"),
       },
     },
   },

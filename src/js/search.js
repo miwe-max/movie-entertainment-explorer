@@ -7,7 +7,11 @@ import {
   getTrendingMovies,
   getTrendingTVShows,
 } from "./api.mjs";
-import { favoriteButtonListener, mediaCardListener, searchEvent } from "./events.mjs";
+import {
+  favoriteButtonListener,
+  mediaCardListener,
+  searchEvent,
+} from "./events.mjs";
 import { fadeIn, loading } from "./animation.mjs";
 
 renderTemplates().then(() => {
@@ -20,8 +24,7 @@ renderTemplates().then(() => {
 const params = new URLSearchParams(window.location.search);
 
 const query1 = params.get("search");
-const query2 = params.get("genre")
-
+const query2 = params.get("genre");
 
 if (query1 && !query2) {
   getMedia("movie", query1).then((medias) => {
@@ -72,5 +75,4 @@ if (query1 && !query2) {
     mediaCardListener();
   });
 }
-
  

@@ -1,6 +1,8 @@
 .fade-in {
   transform: translateY(1000px);
-  transition: opacity 0.4s ease, transform 0.8s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.8s ease;
 }
 
 .fade-in.show {
@@ -26,7 +28,6 @@
 .start-pop.active {
   transform: scale(1);
 }
-
 
 #trailer {
   opacity: 0;

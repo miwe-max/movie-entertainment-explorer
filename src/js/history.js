@@ -1,7 +1,17 @@
-import { renderTemplates, renderMedia, populateGenreSelect, renderActors } from "./ui.mjs";
+import {
+  renderTemplates,
+  renderMedia,
+  populateGenreSelect,
+  renderActors,
+} from "./ui.mjs";
 import { getByIdAndType, getGenreList, getPersonDetails } from "./api.mjs";
 import { getLocalStorage } from "./storage.mjs";
-import { mediaCardListener, searchEvent, castCardListener, favoriteButtonListener } from "./events.mjs";
+import {
+  mediaCardListener,
+  searchEvent,
+  castCardListener,
+  favoriteButtonListener,
+} from "./events.mjs";
 import { fadeIn, loading } from "./animation.mjs";
 
 renderTemplates().then(() => {

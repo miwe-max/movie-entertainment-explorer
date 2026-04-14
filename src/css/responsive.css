@@ -15,14 +15,14 @@
 }
 
 @media (min-width: 400px) {
-  #trailer iframe{
+  #trailer iframe {
     width: 350px;
     height: 196px;
   }
 }
 
 @media (min-width: 600px) {
-  #trailer iframe{
+  #trailer iframe {
     width: 560px;
     height: 315px;
   }
