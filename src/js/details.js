@@ -1,23 +1,57 @@
-import { renderTemplates, renderDetails } from "./ui.mjs";
-import { getByIdAndType, getTrailer } from "./api.mjs";
+import {
+  renderTemplates,
+  renderDetails,
+  renderCast,
+  renderPerson,
+  populateGenreSelect,
+} from "./ui.mjs";
+import {
+  getByIdAndType,
+  getTrailer,
+  getMovieCast,
+  getPersonDetails,
+  getGenreList,
+} from "./api.mjs";
 import { favoriteButtonListener } from "./events.mjs";
+import '../css/style.css';
 
-renderTemplates();
+renderTemplates().then(() => {
+  getGenreList().then((genres) => {
+    populateGenreSelect(genres);
+  });
+});
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 const type = params.get("type");
 
-getByIdAndType(type, id).then((media) => {
-  renderDetails(document.querySelector("#details-container"), media);
-  favoriteButtonListener();
-});
+if (type) {
+  getByIdAndType(type, id).then(async (media) => {
+    renderDetails(document.querySelector("#details-container"), media);
+    favoriteButtonListener();
 
-const trailerLink = await getTrailer(id, type);
-const key = trailerLink.split("v=")[1];
+    const trailerLink = await getTrailer(id, type);
+    console.log(media);
+    if (trailerLink) {
+      const key = trailerLink.split("v=")[1];
+      document.getElementById("trailer").innerHTML = `
+        <iframe
+          src="https://www.youtube.com/embed/${key}?autoplay=1"
+          frameborder="0" allowfullscreen></iframe>
+      `;
+    } else {
+      document.getElementById("trailer").innerHTML =
+        `<p>Oops, sorry there is no trailer available</p>`;
+    }
 
-document.getElementById("trailer").innerHTML = `
-  <iframe
-    src="https://www.youtube.com/embed/${key}"
-    frameborder="0" allowfullscreen></iframe>
-`;
+    getMovieCast(type, id).then((cast) => {
+      renderCast(document.getElementById("cast"), cast);
+      console.log(cast);
+    });
+  });
+} else {
+  getPersonDetails(id).then((person) => {
+    console.log(person);
+    renderPerson(document.querySelector("#details-container"), person);
+  });
+}

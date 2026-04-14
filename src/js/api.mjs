@@ -46,3 +46,62 @@ export async function getTrailer(id, type) {
 
   return `https://www.youtube.com/watch?v=${trailer.key}`;
 }
+
+export async function getGenreList() {
+  const movieRes = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${TMDB_KEY}&language=en-US`);
+  const movieData = await movieRes.json();
+  const movieGenres = movieData.genres || [];
+
+  const tvRes = await fetch(`https://api.themoviedb.org/3/genre/tv/list?api_key=${TMDB_KEY}&language=en-US`);
+  const tvData = await tvRes.json();
+  const tvGenres = tvData.genres || [];
+
+  const allGenres = [...movieGenres, ...tvGenres];
+
+  const uniqueGenres = [];
+  const seen = new Set();
+  for (const genre of allGenres) {
+    if (!seen.has(genre.name)) {
+      seen.add(genre.name);
+      uniqueGenres.push(genre);
+    }
+  }
+
+  return uniqueGenres;
+}
+
+export async function getMedia(type, query) {
+  const url = `https://api.themoviedb.org/3/search/${type}?api_key=${TMDB_KEY}&query=${encodeURIComponent(query)}`;
+
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.results; // <-- list of movies / shows
+} 
+
+export async function getMediaByGenre(type, query) {
+  const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_KEY}&with_genres=${encodeURIComponent(query)}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.results; // <-- list of movies / shows
+}
+
+export async function getMediaByGenreAndTitle(type, query1, query2) {
+  const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_KEY}&with_genres=${encodeURIComponent(query1)}&&with_text_query=${encodeURIComponent(query2)}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.results; // <-- list of movies / shows
+}
+
+export async function getMovieCast(type, movieId) {
+    const url = `https://api.themoviedb.org/3/${type}/${movieId}/credits?api_key=${TMDB_KEY}`;
+    let res = await fetch(url);
+    let data = await res.json();
+    return data.cast; // <-- actors here
+}
+
+export async function getPersonDetails(personId) {
+    const url = `https://api.themoviedb.org/3/person/${personId}?api_key=${TMDB_KEY}`;
+    let res = await fetch(url);
+    let data = await res.json();
+    return data;
+}
