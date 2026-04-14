@@ -21,12 +21,17 @@ renderTemplates().then(() => {
   });
   searchEvent();
 });
-
-getTrendingMovies().then((movies) => {
+try {
+  getTrendingMovies().then((movies) => {
+    loading();
+    renderMedia(document.querySelector("#movies-container"), movies);
+    fadeIn();
+  });
+} catch {
   loading();
-  renderMedia(document.querySelector("#movies-container"), movies);
   fadeIn();
-});
+}
+
 
 getTrendingTVShows().then((movies) => {
   renderMedia(document.querySelector("#shows-container"), movies);

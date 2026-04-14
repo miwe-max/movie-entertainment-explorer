@@ -13,16 +13,24 @@ renderTemplates().then(() => {
 
 let medias = [];
 const favorites = getLocalStorage("#favorites") || [];
-favorites.forEach((favorite) => {
-  const type = favorite[1];
-  const id = favorite[0];
-  getByIdAndType(type, id).then((media) => {
-    loading();
-    medias.push(media);
-    renderMedia(document.querySelector("#content-container"), medias);
-    mediaCardListener();
-    fadeIn();
+if (favorites.length != 0) {
+  favorites.forEach((favorite) => {
+    const type = favorite[1];
+    const id = favorite[0];
+    getByIdAndType(type, id).then((media) => {
+      loading();
+      medias.push(media);
+      renderMedia(document.querySelector("#content-container"), medias);
+      mediaCardListener();
+      fadeIn();
+    });
   });
-});
+}else {
+  document.querySelector("#content-container").innerHTML =
+    `<p>No history is available</p>`;
+  loading();
+  fadeIn();
+}
+
 
  
