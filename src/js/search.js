@@ -44,7 +44,7 @@ if (query1 && !query2) {
     console.log(medias);
   });
 } else if (query1 && query2) {
-  getMediaByGenreAndTitle("movie", query2).then((medias) => {
+  getMediaByGenreAndTitle("movie", query1,query2).then((medias) => {
     renderMedia(document.querySelector("#movies-container"), medias);
     console.log(medias);
   });

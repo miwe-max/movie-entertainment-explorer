@@ -86,7 +86,7 @@ export async function getMediaByGenre(type, query) {
 }
 
 export async function getMediaByGenreAndTitle(type, query1, query2) {
-  const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_KEY}&with_genres=${encodeURIComponent(query1)}&&with_text_query=${encodeURIComponent(query2)}`;
+  const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_KEY}&with_genres=${encodeURIComponent(query2)}&&with_text_query=${encodeURIComponent(query1)}`;
   const res = await fetch(url);
   const data = await res.json();
   return data.results; // <-- list of movies / shows

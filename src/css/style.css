@@ -193,6 +193,16 @@ button:focus-visible {
   height: auto;
 }
 
+.containers div > a h3{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  color: var(--color);
+  font-size: x-large;
+  font-weight: 800;
+}
+
 .containers div button {
   font-size: xx-large;
   margin: 10px;
@@ -212,7 +222,7 @@ button:focus-visible {
 }
 
 /* Movie details */
-#movie-details {
+#movie-details, #cast-details {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
@@ -220,7 +230,7 @@ button:focus-visible {
   justify-content: center;
 }
 
-#movie-details div {
+#movie-details div, #cast-details div {
   width: 800px;
 }
 
@@ -294,6 +304,21 @@ button:focus-visible {
 #cast > div div p {
   padding: 0;
   padding: 0px 10px;
+}
+
+#cast-details h2 {
+  padding: 5px 0;
+  margin: -10px 0;
+}
+
+#cast-details p{
+  padding: 5px 0;
+  margin: 0;
+}
+
+#cast-details h1 {
+  padding: 0;
+  margin-bottom: -5px;
 }
 
 /* Footer */

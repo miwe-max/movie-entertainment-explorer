@@ -42,32 +42,69 @@ export async function populateGenreSelect(genres) {
 export function renderMedia(parentElement, medias) {
   let type = "";
   let mediasHTML = ``;
-  
-  const favorites = getLocalStorage() || [];
-  medias.forEach(media => {
-    let star = "☆";
-    let poster = `<img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.original_name} Poster" />`;
-    favorites.forEach(fav =>{
-      if (media.id == fav[0]) {
-        star = "★";
+  let date;
+  let year;
+  if (medias.length != 0) {
+    const favorites = getLocalStorage() || [];
+    medias.forEach(media => {
+      console.log(media)
+      let star = "☆";
+      let poster = `<img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${media.title || media.name} Poster" />`;
+      favorites.forEach(fav =>{
+        if (media.id == fav[0]) {
+          star = "★";
+        }
+      })
+
+
+      if (media.media_type == "tv"|| media.number_of_episodes || media.first_air_date) {
+        if (!media.first_air_date) {
+          console.log("Date is empty");
+        } else {
+            date = new Date(media.first_air_date);
+            console.log(date);
+        }
+          console.log(date);
+      } else if (media.media_type == "movie" || !media.number_of_episodes){
+        if (!media.release_date) {
+          console.log("Date is empty");
+        } else {
+          date = new Date(media.release_date);
+          console.log(date);
+        }
+      
       }
-    })
 
-    if (media.name) {
-      type = "tv"
-    } 
-    else if (media.title){
-      type = "movie"  
-    }   
+      if (date) {
+        year = date.getFullYear();
+      } else {
+        year = "Year unavailable";
+      }
 
-      mediasHTML += `
-    <div id="medias">
-      <button id="favorite" data-id="${media.id}" data-type=${type}>${star}</button>
-      <a href="details.html?id=${media.id}&type=${type}">
-        ${poster}
-      </a>
-    </div>`
-  });
+      if (media.name) {
+        type = "tv"
+      } 
+      else if (media.title){
+        type = "movie"  
+      }   
+
+        mediasHTML += `
+      <div id="medias">
+        <button id="favorite" data-id="${media.id}" data-type=${type}>${star}</button>
+        <a href="details.html?id=${media.id}&type=${type}">
+        <h3>${media.title || media.name} (${year})</h3>
+        </a>
+        <a href="details.html?id=${media.id}&type=${type}">
+          ${poster}
+          
+        </a>
+      
+      </div>`
+    });
+  } else {
+    mediasHTML = `<p>Oops, sorry there is no data available</p>`;
+  }
+  
   parentElement.innerHTML = mediasHTML;
 }
 
@@ -100,13 +137,8 @@ export function renderDetails(parentElement, media){
         if (!media.first_air_date) {
           console.log("Date is empty");
         } else {
-          if (!media.first_air_date) {
-            console.log("Date is empty");
-          } else {
             date = new Date(media.first_air_date);
             console.log(date);
-          }
-          console.log(date);
         }
         duration = `${media.number_of_seasons} Seasons`;
         title = media.name;
@@ -138,16 +170,19 @@ export function renderDetails(parentElement, media){
   }
 
   
-  document.querySelector("title").textContent = `${title || media.original_name} (${year}) | MTVE`;
+  document.querySelector("title").textContent = `${title || media.name} (${year}) | MTVE`;
   detailsHtml += `
     <div id="movie-details">
-      <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${title || media.original_name} Poster" />
+      <img src="https://image.tmdb.org/t/p/w300${media.poster_path}" alt="${title || media.name} Poster" />
       <div>
         <h1>${title || media.original_name} (${year})<button id="favorite" data-id="${media.id}" data-type=${type}>${star}</button></h1>
-        <p>${date} • ${genres.join(", ")|| "No genres"} • ${duration}</p>
         <h2>Overview</h2>
-        <span>${media.tagline}</span>
+        
         <p>${media.overview}</p>
+        <p>Release Date: ${date}</p>
+        <p>Genres: ${genres.join(", ")|| "No genres"}</p>
+        <p>Duration: ${duration}</p>
+        <span>Tagline: ${media.tagline || "None"}</span>
       </div>
     </div>
     <div id="trailer"></div>
@@ -158,7 +193,9 @@ export function renderDetails(parentElement, media){
 
 export async function renderCast(parentElement, cast) {
   let view = ``;
-  if (cast) {
+  console.log(cast.length)
+  if (cast.length != 0) {
+    console.log(cast)
     cast.forEach((member) => {
       let poster = `<img src="https://image.tmdb.org/t/p/w200${member.profile_path}" alt="${member.name || member.original_name} Profile" />`;
       view +=  `<div>
@@ -171,8 +208,10 @@ export async function renderCast(parentElement, cast) {
         </div>
       </div>`;
     })
-    parentElement.innerHTML = view;
+  } else{
+    view = `<p>Oops, cast info is not available</p>`;
   }
+  parentElement.innerHTML = view;
 }
 
 export async function renderPerson(parentElement, person) {
@@ -195,14 +234,15 @@ export async function renderPerson(parentElement, person) {
 
   document.querySelector("title").textContent = `${person.name} | MTVE`;
   detailsHtml += `
-    <div id="movie-details">
+    <div id="cast-details">
       <img src="https://image.tmdb.org/t/p/w300${person.profile_path}" alt="${person.name} Profile" />
       <div>
         <h1>${person.name}</h1>
-        <p id="birthday">Birthday: ${date}</p>
-        <p>Birth place: ${person.place_of_birth}</p>
-        <h2>Info</h2>
         <span>Department: ${person.known_for_department}</span>
+        <h2 id="info">Info</h2>
+        <p>Birthday: ${date}</p>
+        <p>Birth place: ${person.place_of_birth}</p>
+        
         <p>Biography: ${person.biography}</p>
       </div>
     </div>
