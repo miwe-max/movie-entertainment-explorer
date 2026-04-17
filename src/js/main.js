@@ -32,7 +32,6 @@ try {
   fadeIn();
 }
 
-
 getTrendingTVShows().then((movies) => {
   renderMedia(document.querySelector("#shows-container"), movies);
   favoriteButtonListener();
@@ -40,5 +39,3 @@ getTrendingTVShows().then((movies) => {
 });
 
 setLocalStorage("#visits", count);
-
- 

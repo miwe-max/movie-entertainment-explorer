@@ -25,12 +25,9 @@ if (favorites.length != 0) {
       fadeIn();
     });
   });
-}else {
+} else {
   document.querySelector("#content-container").innerHTML =
     `<p>No history is available</p>`;
   loading();
   fadeIn();
 }
-
-
- 

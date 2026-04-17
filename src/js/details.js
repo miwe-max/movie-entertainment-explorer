@@ -81,8 +81,3 @@ if (type) {
     setLocalStorage("#cast", cast);
   });
 }
-
-
-
-
- 

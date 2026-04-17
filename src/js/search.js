@@ -26,7 +26,7 @@ const params = new URLSearchParams(window.location.search);
 const query1 = params.get("search");
 const query2 = params.get("genre");
 
-try{
+try {
   if (query1 && !query2) {
     getMedia("movie", query1).then((medias) => {
       loading();
@@ -76,8 +76,6 @@ try{
       mediaCardListener();
     });
   }
-}catch{
+} catch {
   loading();
 }
-  
- 

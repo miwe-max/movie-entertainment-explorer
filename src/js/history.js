@@ -38,7 +38,8 @@ if (media_history.length != 0) {
   });
 } else {
   loading();
-  document.querySelector("#content-container").innerHTML = `<p>No history is available</p> `
+  document.querySelector("#content-container").innerHTML =
+    `<p>No history is available</p> `;
   fadeIn();
 }
 
@@ -55,6 +56,6 @@ if (actor_history.length != 0) {
   });
 } else {
   loading();
-  document.querySelector("#cast").innerHTML = `<p>No history is available</p> `
+  document.querySelector("#cast").innerHTML = `<p>No history is available</p> `;
   fadeIn();
 }
